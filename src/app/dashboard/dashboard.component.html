@@ -1,0 +1,20 @@
+<nav  class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+        <h1 style="color: aliceblue;">Angular CRUD</h1>
+        <div class="d-flex">
+            <button routerLink="/login" class="btn btn-danger mx-2">Logout</button>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <ng-container *ngFor="let item of productList">
+            <div class="card col-md-3">
+                <img routerLink="/details/{{item.id}}" src="{{item.image}}" alt="">
+                <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.title}}</h5>
+                <p><strong>Price:</strong> ${{item.price}}</p>
+                <button routerLink="/details/{{item.id}}" class="btn btn-primary">View Details</button>
+            </div>
+        </ng-container>
+    </div>
+</div>
