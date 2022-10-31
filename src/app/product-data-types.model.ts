@@ -7,3 +7,11 @@ export interface ProductDataTypes {
     image: string,
     rating:string  
 }
+
+export class signupModel{
+    fullname : string = '';
+    email: string ='';
+    password : string='';
+    mobile: string='';
+    id: number=0;
+}

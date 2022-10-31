@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms"
 import { Router } from '@angular/router';
+import { signupModel } from '../product-data-types.model';
+import { ProductService } from '../services/product.service';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -10,7 +13,9 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
 
   public signupForm !: FormGroup;
-  constructor(private formBuilder : FormBuilder, private http : HttpClient, private router: Router) {
+  signupModelObj : signupModel = new signupModel();
+  
+  constructor(private formBuilder : FormBuilder, private http : HttpClient, private router: Router,private api : ProductService) {
    }
 
   ngOnInit(): void {
@@ -22,12 +27,17 @@ export class SignupComponent implements OnInit {
     })
   }
   signUp(){
-    this.http.post<any>("http://localhost:3000/signupUsers", this.signupForm.value)
-    .subscribe(res=>{
+    this.signupModelObj.fullname = this.signupForm.value.fullname;
+    this.signupModelObj.mobile = this.signupForm.value.mobile;
+    this.signupModelObj.email = this.signupForm.value.email;
+    this.signupModelObj.password = this.signupForm.value.password;
+
+    this.api.postUsers(this.signupModelObj).subscribe(res=>{
       alert("Sigup Successfull");
       this.signupForm.reset();
       this.router.navigate(['login']);
-    }, err=>{
+    }, 
+    err=>{
       alert("Something went wrong");
     })
   }

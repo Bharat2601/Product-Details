@@ -23,4 +23,10 @@ export class ProductService {
   getLogin(): Observable<any>{
     return this.http.get<any>("http://localhost:3000/signupUsers");
   }
+  postUsers(data : any): Observable<any>{
+    return this.http.post<any>("http://localhost:3000/signupUsers", data)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
 }
